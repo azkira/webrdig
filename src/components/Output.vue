@@ -1,0 +1,3 @@
+<template>
+  <h1>output</h1>
+</template>
