@@ -1,3 +1,36 @@
 <template>
-  <h1>output</h1>
+  <div>
+    <h1 class="text-subtitle-2 text-center">output</h1>
+    <v-row>
+      <v-col>
+        <Button/>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <Button/>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <Button/>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <Button/>
+      </v-col>
+    </v-row>
+  </div>
 </template>
+
+<script>
+import Button from './Button.vue'
+
+export default {
+  name: "Output",
+  components: {
+    Button
+  }
+}
+</script>

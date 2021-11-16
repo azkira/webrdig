@@ -49,7 +49,15 @@
       right
       expand-on-hover
     >
-
+      <v-list-item
+        v-for="rightnav in rightnavs"
+        :key="rightnav.title"
+        :to="rightnav.link"
+      >
+        <v-list-item-title class="text-h6">
+            {{rightnav.title}}
+        </v-list-item-title>
+      </v-list-item>
     </v-navigation-drawer>
 
     <!-- Sizes your content based upon application components -->
@@ -85,7 +93,14 @@ export default {
           { title: 'Recent', icon: 'mdi-history', link: '/recent' },
           { title: 'My Account', icon: 'mdi-account-group-outline', link: '/teams' },
           { title: 'Users', icon: 'mdi-calendar', link: '/schedule' },
-        ]
+        ],
+      rightnavs: [
+        {title: 'Modul 1', link: '/modul1'},
+        {title: 'Modul 2', link: '/modul2'},
+        {title: 'Modul 3', link: '/modul3'},
+        {title: 'Modul 4', link: '/modul4'},
+        {title: 'Modul 5', link: '/modul5'},
+      ]
     };
   },
 };
