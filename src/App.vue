@@ -42,12 +42,14 @@
       </v-list-item>
     </v-app-bar>
 
-    <!-- Right Navigation Menu -->
+    <!-- Right Navigation Menu Home -->
     <v-navigation-drawer
       app
       clipped
       right
       expand-on-hover
+
+      v-if="!$route.meta.hideHome"
     >
       <v-list-item
         v-for="rightnav in rightnavs"
@@ -56,6 +58,106 @@
       >
         <v-list-item-title class="text-h6">
             {{rightnav.title}}
+        </v-list-item-title>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <!-- Right Navigation Menu Modul 1 -->
+    <v-navigation-drawer
+      app
+      clipped
+      right
+      expand-on-hover
+
+      v-if="$route.meta.navMod1"
+    >
+      <v-list-item
+        v-for="itemModul1 in itemsModul1"
+        :key="itemModul1.title"
+        :to="itemModul1.link"
+      >
+        <v-list-item-title class="text-h6">
+            {{itemModul1.title}}
+        </v-list-item-title>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <!-- Right Navigation Menu Modul 2 -->
+    <v-navigation-drawer
+      app
+      clipped
+      right
+      expand-on-hover
+
+      v-if="$route.meta.navMod2"
+    >
+      <v-list-item
+        v-for="itemModul2 in itemsModul2"
+        :key="itemModul2.title"
+        :to="itemModul2.link"
+      >
+        <v-list-item-title class="text-h6">
+            {{itemModul2.title}}
+        </v-list-item-title>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <!-- Right Navigation Menu Modul 3 -->
+    <v-navigation-drawer
+      app
+      clipped
+      right
+      expand-on-hover
+
+      v-if="$route.meta.navMod3"
+    >
+      <v-list-item
+        v-for="itemModul3 in itemsModul3"
+        :key="itemModul3.title"
+        :to="itemModul3.link"
+      >
+        <v-list-item-title class="text-h6">
+            {{itemModul3.title}}
+        </v-list-item-title>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <!-- Right Navigation Menu Modul 4 -->
+    <v-navigation-drawer
+      app
+      clipped
+      right
+      expand-on-hover
+
+      v-if="$route.meta.navMod4"
+    >
+      <v-list-item
+        v-for="itemModul4 in itemsModul4"
+        :key="itemModul4.title"
+        :to="itemModul4.link"
+      >
+        <v-list-item-title class="text-h6">
+            {{itemModul4.title}}
+        </v-list-item-title>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <!-- Right Navigation Menu Modul 5 -->
+    <v-navigation-drawer
+      app
+      clipped
+      right
+      expand-on-hover
+
+      v-if="$route.meta.navMod5"
+    >
+      <v-list-item
+        v-for="itemModul5 in itemsModul5"
+        :key="itemModul5.title"
+        :to="itemModul5.link"
+      >
+        <v-list-item-title class="text-h6">
+            {{itemModul5.title}}
         </v-list-item-title>
       </v-list-item>
     </v-navigation-drawer>
@@ -100,7 +202,42 @@ export default {
         {title: 'Modul 3', link: '/modul3'},
         {title: 'Modul 4', link: '/modul4'},
         {title: 'Modul 5', link: '/modul5'},
-      ]
+      ],
+      itemsModul1: [
+        {title: 'Percobaan 1', link: '/modul1'},
+        {title: 'Percobaan 2', link: '/modul1'},
+        {title: 'Percobaan 3', link: '/modul1'},
+        {title: 'Percobaan 4', link: '/modul1'},
+        {title: 'Percobaan 5', link: '/modul1'},
+      ],
+      itemsModul2: [
+        {title: 'Percobaan 1', link: '/modul2'},
+        {title: 'Percobaan 2', link: '/modul2'},
+        {title: 'Percobaan 3', link: '/modul2'},
+        {title: 'Percobaan 4', link: '/modul2'},
+        {title: 'Percobaan 5', link: '/modul2'},
+      ],
+      itemsModul3: [
+        {title: 'Percobaan 1', link: '/modul3'},
+        {title: 'Percobaan 2', link: '/modul3'},
+        {title: 'Percobaan 3', link: '/modul3'},
+        {title: 'Percobaan 4', link: '/modul3'},
+        {title: 'Percobaan 5', link: '/modul3'},
+      ],
+      itemsModul4: [
+        {title: 'Percobaan 1', link: '/modul4'},
+        {title: 'Percobaan 2', link: '/modul4'},
+        {title: 'Percobaan 3', link: '/modul4'},
+        {title: 'Percobaan 4', link: '/modul4'},
+        {title: 'Percobaan 5', link: '/modul4'},
+      ],
+      itemsModul5: [
+        {title: 'Percobaan 1', link: '/modul5'},
+        {title: 'Percobaan 2', link: '/modul5'},
+        {title: 'Percobaan 3', link: '/modul5'},
+        {title: 'Percobaan 4', link: '/modul5'},
+        {title: 'Percobaan 5', link: '/modul5'},
+      ],
     };
   },
 };

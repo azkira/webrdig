@@ -44,27 +44,32 @@ const routes = [
   {
     path: '/modul1',
     name: 'One',
-    component: One
+    component: One,
+    meta: { hideHome: true, navMod1: true }
   },
   {
     path: '/modul2',
     name: 'Two',
-    component: Two
+    component: Two,
+    meta: { hideHome: true, navMod2: true }
   },
   {
     path: '/modul3',
     name: 'Three',
-    component: Three
+    component: Three,
+    meta: { hideHome: true, navMod3: true}
   },
   {
     path: '/modul4',
     name: 'Four',
-    component: Four
+    component: Four,
+    meta: { hideHome: true, navMod4: true }
   },
   {
     path: '/modul5',
     name: 'Five',
-    component: Five
+    component: Five,
+    meta: { hideHome: true, navMod5: true }
   },
 ]
 
