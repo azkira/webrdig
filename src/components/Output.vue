@@ -1,36 +1,36 @@
 <template>
   <div>
-    <h1 class="text-subtitle-2 text-center">output</h1>
+    <h1 class="text-subtitle-2 text-center my-2">LED</h1>
     <v-row>
       <v-col>
-        <Button/>
+        <Led/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <Button/>
+        <Led/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <Button/>
+        <Led/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <Button/>
+        <Led/>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue'
+import Led from './Led.vue'
 
 export default {
   name: "Output",
   components: {
-    Button
+    Led
   }
 }
 </script>

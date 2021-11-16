@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-subtitle-2 text-center">input</h1>
+    <h1 class="text-subtitle-2 text-center my-2">input</h1>
     <v-row>
       <v-col>
         <Button/>
