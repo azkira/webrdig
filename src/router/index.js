@@ -9,6 +9,10 @@ import Two from '../views/modules/Two.vue'
 import Three from '../views/modules/Three.vue'
 import Four from '../views/modules/Four.vue'
 import Five from '../views/modules/Five.vue'
+import And from '../views/modules/percobaan/dasarRdig/And.vue'
+import Or from '../views/modules/percobaan/dasarRdig/Or.vue'
+import Nand from '../views/modules/percobaan/dasarRdig/Nand.vue' // percobaan 4 modul 1
+import Nor from '../views/modules/percobaan/dasarRdig/Nor.vue' // percobaan 5 modul 1
 
 Vue.use(VueRouter)
 
@@ -45,6 +49,30 @@ const routes = [
     path: '/modul1',
     name: 'One',
     component: One,
+    meta: { hideHome: true, navMod1: true }
+  },
+  {
+    path: '/modul1/percobaan1',
+    name: 'And',
+    component: And,
+    meta: { hideHome: true, navMod1: true }
+  },
+  {
+    path: '/modul1/percobaan2',
+    name: 'Or',
+    component: Or,
+    meta: { hideHome: true, navMod1: true }
+  },
+  {
+    path: '/modul1/percobaan4',
+    name: 'Nand',
+    component: Nand,
+    meta: { hideHome: true, navMod1: true }
+  },
+  {
+    path: '/modul1/percobaan5',
+    name: 'Nor',
+    component: Nor,
     meta: { hideHome: true, navMod1: true }
   },
   {
