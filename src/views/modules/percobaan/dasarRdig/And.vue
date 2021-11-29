@@ -59,6 +59,8 @@
 </template>
 
 <script>
+//import Socket from '../../../../socket';
+
 export default {
   name: "And",
   data() {
@@ -71,6 +73,16 @@ export default {
       state: false
     };
   },
+/*  mounted() {
+    // Connected 
+    Socket.$on("connected", () => {
+      this.ws.connected = true;
+    })
+    // Disconnected
+    Socket.$on("message", (json) => {
+      this.ws.connected = false;
+    })
+  },*/
   methods: {
     switch1(number) {
       if (this.state) {
