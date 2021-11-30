@@ -9,10 +9,15 @@ import Two from '../views/modules/Two.vue'
 import Three from '../views/modules/Three.vue'
 import Four from '../views/modules/Four.vue'
 import Five from '../views/modules/Five.vue'
-import And from '../views/modules/percobaan/dasarRdig/And.vue'
-import Or from '../views/modules/percobaan/dasarRdig/Or.vue'
-import Nand from '../views/modules/percobaan/dasarRdig/Nand.vue' // percobaan 4 modul 1
-import Nor from '../views/modules/percobaan/dasarRdig/Nor.vue' // percobaan 5 modul 1
+import And from '../views/modules/percobaan/dasarRdig/And.vue' // modul 1 percobaan 1
+import Or from '../views/modules/percobaan/dasarRdig/Or.vue' // modul 1 percobaan 2
+import Nand from '../views/modules/percobaan/dasarRdig/Nand.vue' // modul 1 percobaan 4 
+import Nor from '../views/modules/percobaan/dasarRdig/Nor.vue' //  modul 1 percobaan 5
+import Srlatch from '../views/modules/percobaan/sekuensial/Srlatch.vue' // modul 4 percobaan 1
+import Rsflipflop from '../views/modules/percobaan/sekuensial/Rsflipflop.vue' // modul 4 percobaan 2
+import Jkflipflop from '../views/modules/percobaan/sekuensial/Jkflipflop.vue' // modul 4 percobaan 3
+import Dflipflop from '../views/modules/percobaan/sekuensial/Dflipflop.vue' // modul 4 percobaan 4
+import Tflipflop from '../views/modules/percobaan/sekuensial/Tflipflop.vue' // modul 4 percobaan 5
 
 Vue.use(VueRouter)
 
@@ -91,6 +96,36 @@ const routes = [
     path: '/modul4',
     name: 'Four',
     component: Four,
+    meta: { hideHome: true, navMod4: true }
+  },
+  {
+    path: '/modul4/percobaan1',
+    name: 'Srlatch',
+    component: Srlatch,
+    meta: { hideHome: true, navMod4: true }
+  },
+  {
+    path: '/modul4/percobaan2',
+    name: 'Rsflipflop',
+    component: Rsflipflop,
+    meta: { hideHome: true, navMod4: true }
+  },
+  {
+    path: '/modul4/percobaan3',
+    name: 'Jkflipflop',
+    component: Jkflipflop,
+    meta: { hideHome: true, navMod4: true }
+  },
+  {
+    path: '/modul4/percobaan4',
+    name: 'Dflipflop',
+    component: Dflipflop,
+    meta: { hideHome: true, navMod4: true }
+  },
+  {
+    path: '/modul4/percobaan5',
+    name: 'Tflipflop',
+    component: Tflipflop,
     meta: { hideHome: true, navMod4: true }
   },
   {
