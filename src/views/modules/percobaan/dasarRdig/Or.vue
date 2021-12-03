@@ -1,42 +1,39 @@
 <template>
   <div class="my-2">
-    Percobaan 2
+    <h1 class="header">
+      Percobaan 2 - Operasi OR
+    </h1>
     <v-row>
       <v-col class="grid">
         <v-row>
           <v-col>
-            <v-btn @click="switch1('0')" color="primary" elevation="2" icon>0</v-btn>
-            <v-btn @click="switch1('1')" color="primary" elevation="2" icon>1</v-btn>
-            <v-col>
-              <v-btn color="primary" elevation="2" icon>{{input1}}</v-btn>
-            </v-col>
+            <v-btn @click="switch1('0'); ledOff1()" color="primary" elevation="2" >OFF</v-btn>
+            <v-btn @click="switch1('1'); ledOn1()" color="primary" elevation="2" >ON</v-btn>
+            <v-btn color="primary" elevation="2" disabled outlined icon class="mx-4">{{input1}}</v-btn>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-btn @click="switch2('0')" color="primary" elevation="2" icon>0</v-btn>
-            <v-btn @click="switch2('1')" color="primary" elevation="2" icon>1</v-btn>
-            <v-col>
-              <v-btn color="primary" elevation="2" icon>{{input2}}</v-btn>
-            </v-col>
+            <v-btn @click="switch2('0'); ledOff2()" color="primary" elevation="2" >OFF</v-btn>
+            <v-btn @click="switch2('1'); ledOn2()" color="primary" elevation="2" >ON</v-btn>
+            <v-btn color="primary" elevation="2" disabled outlined icon class="mx-4">{{input2}}</v-btn>
           </v-col>
         </v-row>
       </v-col>
 
       <v-col class="mx-auto grid">
         <v-img
-          lazy-src="https://picsum.photos/id/11/10/6"
-          max-height="1500"
-          max-width="250"
-          :src="require('../../../../assets/port.jpg')"
+          height="179"
+          width="623"
+          :src="require('../../../../assets/AND.png')"
         ></v-img>
       </v-col>
 
       <v-col class="grid">
         <v-row>
           <v-col>
-            <v-btn @click="get" color="primary" elevation="2" icon>get</v-btn>
-            <v-btn elevation="2" icon disabled outlined>{{output || '0'}}</v-btn>
+            <v-btn @click="get" color="primary" elevation="2">get</v-btn>
+            <v-btn elevation="2" icon disabled outlined class="mx-4">{{output || '0'}}</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -44,18 +41,30 @@
 
     <v-spacer></v-spacer>
 
-    <v-row>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <v-row class="my-10">
       <v-col class="grid">
         <v-img
-          lazy-src="https://picsum.photos/id/11/10/6"
           max-height="150"
           max-width="250"
-          :src="require('../../../../assets/land.jpg')"
+          :src="require('../../../../assets/nothing.png')"
           class="mx-auto"
         ></v-img>
       </v-col>
     </v-row>
+
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
+  
 </template>
 
 <script>
@@ -110,5 +119,11 @@ export default {
 .grid {
   display: grid;
   place-items: center;
+}
+
+.header {
+  padding: 60px;
+  text-align: center;
+  font-size: 30px;
 }
 </style>
