@@ -7,15 +7,15 @@
       <v-col class="grid">
         <v-row>
           <v-col>
-            <v-btn @click="switch1('0'); ledOff1()" color="primary" elevation="2" >OFF</v-btn>
-            <v-btn @click="switch1('1'); ledOn1()" color="primary" elevation="2" >ON</v-btn>
+            <v-btn v-if="input1=='1'" @click="led1('0')" color="primary" elevation="2" >OFF</v-btn>
+            <v-btn v-if="input1=='0'" @click="led1('1')" color="primary" elevation="2" >ON</v-btn>
             <v-btn color="primary" elevation="2" disabled outlined icon class="mx-4">{{input1}}</v-btn>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-btn @click="switch2('0'); ledOff2()" color="primary" elevation="2" >OFF</v-btn>
-            <v-btn @click="switch2('1'); ledOn2()" color="primary" elevation="2" >ON</v-btn>
+            <v-btn v-if="input2=='1'" @click="led2('0')" color="primary" elevation="2" >OFF</v-btn>
+            <v-btn v-if="input2=='0'" @click="led2('1')" color="primary" elevation="2" >ON</v-btn>
             <v-btn color="primary" elevation="2" disabled outlined icon class="mx-4">{{input2}}</v-btn>
           </v-col>
         </v-row>
@@ -32,8 +32,8 @@
       <v-col class="grid">
         <v-row>
           <v-col>
-            <v-btn @click="get" color="primary" elevation="2">get</v-btn>
-            <v-btn elevation="2" icon disabled outlined class="mx-4">{{output || '0'}}</v-btn>
+            <v-btn v-if="output!==null" @click="get; kirim()" color="primary" elevation="2">get</v-btn>
+            <v-btn elevation="2" icon disabled outlined class="mx-4">{{output}}</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -50,12 +50,11 @@
 
     <v-row class="my-10">
       <v-col class="grid">
-        <v-img
-          max-height="150"
-          max-width="250"
-          :src="require('../../../../assets/nothing.png')"
+        <img
+          v-if="dataimage64!=null"
+          :src="dataUrl"
           class="mx-auto"
-        ></v-img>
+      >
       </v-col>
     </v-row>
 
@@ -74,14 +73,23 @@
     name: "And",
     data() {
       return {
-        input1: '0',
-        input2: '0',
+        input1: null,
+        input2: null,
         temp1: '0',
         temp2: '0',
-        output: '',
+        output: null,
+        dataimage64: null,
         state: false
       };
     },
+    computed : {
+    dataUrl(){
+        return 'data:image/jpeg;base64,' + btoa(
+            new Uint8Array(this.dataimage64)
+            .reduce((data, byte) => data + String.fromCharCode(byte), '')
+        );
+    }
+},
   /*  mounted() {
       // Connected 
       Socket.$on("connected", () => {
@@ -92,6 +100,60 @@
         this.ws.connected = false;
       })
     },*/
+    async mounted() {    
+        this.sub_topic = 'image64';       
+        this.$mqtt.on('connect', () => {  
+            this.$mqtt.subscribe(this.sub_topic, (err) => {
+              if(err){
+                  console.log(err);
+              }
+              else{
+                  console.log("success subscribe " + this.sub_topic);
+                  this.state = "connected " + this.sub_topic;
+              }
+            });
+            this.$mqtt.subscribe("mikro2client_input1active", (err) => {
+              if(err){
+                  console.log(err);
+              }
+              else{
+                  console.log("success subscribe " + "mikro2client_input1active");
+                  this.state = "connected" + "pubinputactive1";
+              }
+            });
+            this.$mqtt.subscribe("mikro2client_input2active", (err) => {
+              if(err){
+                  console.log(err);
+              }
+              else{
+                  console.log("success subscribe " + "mikro2client_input2active");
+                  this.state = "connected " + "mikro2client_input2active";
+              }
+            });
+            this.$mqtt.subscribe("and-output-active-3", (err) => {
+              if(err){
+                  console.log(err);
+              }
+              else{
+                  console.log("success subscribe " + "and-output-active-3");
+                  this.state = "connected " + "and-output-active-3";
+              }
+            });
+    });
+        this.$mqtt.on('message', (topic, message) =>{
+          console.log(message);
+          if(topic== 'image64'){
+            this.dataimage64 = message;
+        }else if(topic == 'mikro2client_input1active'){
+          this.input1 = message;
+        }else if(topic == 'mikro2client_input2active'){
+          this.input2 = message;
+        }else if(topic == 'and-output-active-3'){
+          this.output = message;
+        }
+      })
+  },
+
     methods: {
       switch1(number) {
         if (this.state) {
@@ -123,34 +185,26 @@
           this.output = '1';
         }
       },
-      ledOn1(){
-        this.$mqtt.publish('esp8266/led_suhu', 'led1-active', (err) => {
-        if(!err){
-          this.state = "Berhasil Menyalakan lampu";
+      led1(state){
+        this.$mqtt.publish('and-input-active-1', state, (err) => {
+        if(err){
+          console.log(err)
           //alert("Berhasil Memberi Minum");
             }
           })
         },
-      ledOff1(){
-        this.$mqtt.publish('esp8266/led_suhu', 'led1-deactive', (err) => {
-        if(!err){
-          this.state = "Berhasil Mematikan lampu";
-          //alert("Berhasil Memberi Minum");
-            }
-          })
-      },
-      ledOn2(){
-        this.$mqtt.publish('esp8266/led_suhu', 'led2-active', (err) => {
-        if(!err){
-          this.state = "Berhasil Menyalakan lampu";
+      led2(state){
+        this.$mqtt.publish('and-input-active-2', state, (err) => {
+        if(err){
+          console.log(err);
           //alert("Berhasil Memberi Minum");
             }
           })
         },
-      ledOff2(){
-        this.$mqtt.publish('esp8266/led_suhu', 'led2-deactive', (err) => {
+      kirim(){
+        this.$mqtt.publish('active', 'true', (err) => {
         if(!err){
-          this.state = "Berhasil Mematikan lampu";
+          this.state = "Berhasil Mengambil ";
           //alert("Berhasil Memberi Minum");
             }
           })
