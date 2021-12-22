@@ -148,13 +148,12 @@
 
     <!-- Sizes your content based upon application components -->
     <v-main class="grey lighten-3">
+      <BreadCrumbs/>
       <v-container fluid>
-        <v-row>
-          <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
-              <router-view class="mx-2"></router-view>
-            </v-sheet>
-          </v-col>
+        <v-row justify="center" class="sheet">
+          <v-sheet min-height="70vh" width="60%" class="sheet">
+            <router-view class="mx-2 my-2"></router-view>
+          </v-sheet>
         </v-row>
       </v-container>
     </v-main>
@@ -166,9 +165,13 @@
 </template>
 
 <script>
+import BreadCrumbs from "@/components/BreadCrumbs.vue"
+
 export default {
   name: "App",
-
+  components: {
+    BreadCrumbs
+  },
   data() {
     return {
       items: [
@@ -182,7 +185,7 @@ export default {
         { title: "Users", icon: "mdi-calendar", link: "/schedule" },
       ],
       rightnavs: [
-        { title: "Modul Praktikum"},
+        { title: "Modul Praktikum" },
         { title: "Modul 1", link: "/modul1" },
         { title: "Modul 2", link: "/modul2" },
         { title: "Modul 3", link: "/modul3" },
@@ -237,5 +240,8 @@ export default {
 .logo {
   height: 50px;
   width: 50px;
+}
+.sheet {
+  margin-top: 3%;
 }
 </style>

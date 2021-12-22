@@ -25,7 +25,14 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      breadCrumb: [
+        {
+          text: 'Home'
+        }
+      ]
+    }
   },
   {
     path: '/about',
@@ -38,47 +45,104 @@ const routes = [
   {
     path: '/teams',
     name: 'Teams',
-    component: Teams
+    component: Teams,
+    meta: {
+      breadCrumb: [
+        {
+          text: 'Teams'
+        }
+      ]
+    }
   },
   {
     path: '/recent',
     name: 'Recent',
-    component: Recent
+    component: Recent,
+    meta: {
+      breadCrumb: [
+        {
+          text: 'Recent'
+        }
+      ]
+    }
   },
   {
     path: '/schedule',
     name: 'Schedule',
-    component: Schedule
+    component: Schedule,
+    meta: {
+      breadCrumb: [
+        {
+          text: 'Schedule'
+        }
+      ]
+    }
   },
   {
     path: '/modul1',
     name: 'One',
     component: One,
-    meta: { hideHome: true, navMod1: true }
+    meta: {
+      hideHome: true,
+      navMod1: true,
+      breadCrumb: [
+        {
+          text: 'Modul Satu'
+        }
+      ]
+    }
   },
   {
     path: '/modul1/percobaan1',
     name: 'And',
     component: And,
-    meta: { hideHome: true, navMod1: true }
+    meta: {
+      hideHome: true, navMod1: true,
+      breadCrumb: [
+        {
+          text: 'Modul Satu'
+        }
+      ]
+    }
   },
   {
     path: '/modul1/percobaan2',
     name: 'Or',
     component: Or,
-    meta: { hideHome: true, navMod1: true }
+    meta: {
+      hideHome: true, navMod1: true,
+      breadCrumb: [
+        {
+          text: 'Modul Satu'
+        }
+      ]
+    }
   },
   {
     path: '/modul1/percobaan4',
     name: 'Nand',
     component: Nand,
-    meta: { hideHome: true, navMod1: true }
+    meta: {
+      hideHome: true, navMod1: true,
+      breadCrumb: [
+        {
+          text: 'Modul Satu'
+        }
+      ]
+    }
   },
   {
     path: '/modul1/percobaan5',
     name: 'Nor',
     component: Nor,
-    meta: { hideHome: true, navMod1: true }
+    meta: {
+      hideHome: true, navMod1: true,
+      breadCrumb: [
+        {
+          text: 'Modul Satu'
+        }
+      ]
+    }
   },
   {
     path: '/modul2',
@@ -90,7 +154,7 @@ const routes = [
     path: '/modul3',
     name: 'Three',
     component: Three,
-    meta: { hideHome: true, navMod3: true}
+    meta: { hideHome: true, navMod3: true }
   },
   {
     path: '/modul4',
