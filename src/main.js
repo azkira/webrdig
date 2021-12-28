@@ -13,7 +13,7 @@ const mqttoptions = {
   password: ''
 }
 
-Vue.use(VueMqtt, 'ws://20.212.146.116', mqttoptions);
+Vue.use(VueMqtt, 'ws://20.212.146.116:9001', mqttoptions);
 
 new Vue({
   router,

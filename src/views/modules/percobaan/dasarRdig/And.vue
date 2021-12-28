@@ -226,7 +226,7 @@ export default {
     },
     get() {
       if (this.temp1 === "0x" && this.temp2 === "0y") {
-        this.output = "0";
+        //this.output = "0";
         this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
           if (err) {
             console.log(err);
@@ -241,7 +241,7 @@ export default {
         });
       }
       if (this.temp1 === "0x" && this.temp2 === "1y") {
-        this.output = "0";
+        //this.output = "0";
         this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
           if (err) {
             console.log(err);
@@ -256,7 +256,7 @@ export default {
         });
       }
       if (this.temp1 === "1x" && this.temp2 === "0y") {
-        this.output = "0";
+        //this.output = "0";
         this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
           if (err) {
             console.log(err);
@@ -271,7 +271,7 @@ export default {
         });
       }
       if (this.temp1 === "1x" && this.temp2 === "1y") {
-        this.output = "1";
+        //this.output = "1";
         this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
           if (err) {
             console.log(err);
@@ -285,6 +285,12 @@ export default {
           }
         });
       }
+      this.$mqtt.publish('active', 'true', (err) => {
+        if(!err){
+          this.state = "Berhasil Mengambil ";
+          //alert("Berhasil Memberi Minum");
+            }
+          })
     },
   },
 };
