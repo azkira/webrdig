@@ -151,7 +151,7 @@
       <BreadCrumbs/>
       <v-container fluid>
         <v-row justify="center" class="sheet">
-          <v-sheet min-height="70vh" width="60%" class="sheet">
+          <v-sheet min-height="70vh" width="70%" class="sheet">
             <router-view class="mx-2 my-2"></router-view>
           </v-sheet>
         </v-row>

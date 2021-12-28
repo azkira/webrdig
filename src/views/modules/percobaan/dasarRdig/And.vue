@@ -5,72 +5,46 @@
       <v-col class="grid">
         <v-row>
           <v-col>
+            <!-- button 1 - 1 -->
             <v-btn
-              v-if="inArray[0] == '1'"
-              @click="led1('0')"
+              @click="switch1('0')"
               color="primary"
               elevation="2"
+              class="mx-2"
               >OFF</v-btn
             >
+            <!-- button 1 - 2 -->
             <v-btn
-              v-if="inArray[0] == '0'"
-              @click="led1('1')"
+              @click="switch1('1')"
               color="primary"
               elevation="2"
+              class="mx-2"
               >ON</v-btn
             >
-            <v-btn
-              v-if="inArray[0] == null"
-              @click="led1('1')"
-              color="primary"
-              elevation="2"
-              disabled
-              >ON</v-btn
-            >
-            <v-btn
-              color="primary"
-              elevation="2"
-              disabled
-              outlined
-              icon
-              class="mx-4"
-              >{{ inArray[0] }}</v-btn
-            >
+            <!-- button 1 - 3 -->
+            <v-btn color="primary" elevation="2" icon>{{ input1 }}</v-btn>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
+            <!-- button 2 - 1 -->
             <v-btn
-              v-if="inArray[1] == '1'"
-              @click="led2('0')"
+              @click="switch2('0')"
               color="primary"
               elevation="2"
+              class="mx-2"
               >OFF</v-btn
             >
+            <!-- button 2 - 2 -->
             <v-btn
-              v-if="inArray[1] == '0'"
-              @click="led2('1')"
+              @click="switch2('1')"
               color="primary"
               elevation="2"
+              class="mx-2"
               >ON</v-btn
             >
-            <v-btn
-              v-if="inArray[1] == null"
-              @click="led1('1')"
-              color="primary"
-              elevation="2"
-              disabled
-              >ON</v-btn
-            >
-            <v-btn
-              color="primary"
-              elevation="2"
-              disabled
-              outlined
-              icon
-              class="mx-4"
-              >{{ inArray[1] }}</v-btn
-            >
+            <!-- button 2 - 3 -->
+            <v-btn color="primary" elevation="2" icon>{{ input2 }}</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -98,6 +72,8 @@
     <br />
 
     <v-row justify="center" align="center">
+      <v-btn @click="get()" color="primary" elevation="2">get</v-btn>
+      <!-- 
       <v-btn
         v-if="output !== null"
         @click="
@@ -109,6 +85,7 @@
         >get</v-btn
       >
       <v-btn
+        v-if="output == null"
         @click="
           get;
           kirim();
@@ -118,6 +95,7 @@
         disabled
         >get</v-btn
       >
+      -->
     </v-row>
     <br />
     <v-divider></v-divider>
@@ -127,10 +105,12 @@
       <v-col class="grid">
         <v-sheet height="300" width="500" outlined>
           <img
-            max-height="300"
-            max-width="500"
-            v-if="dataimage64 != null"
+            height="300"
+            width="500"
             :src="dataUrl"
+            @error="
+              $event.target.src = require('../../../../assets/default-out.jpg')
+            "
             class="mx-auto"
           />
         </v-sheet>
@@ -144,14 +124,15 @@ export default {
   name: "And",
   data() {
     return {
-      //set for indicator input value in light switch // 0 means off
-      inDisplay: "0",
-      _inDisplay: "0",
-
       output: null,
       dataimage64: null,
       state: false,
-
+      input1: "0",
+      input2: "0",
+      temp1: "0x",
+      temp2: "0y",
+      //set for indicator input value in light switch // 0 means off
+      inDisplay: [null, null, "0", "0", "0", "0", "0", "0"],
       //array for 8bit input  //set null for the array in use
       inArray: [null, null, "0", "0", "0", "0", "0", "0"],
     };
@@ -171,11 +152,14 @@ export default {
   },
   async mounted() {
     console.log(this.inArray.toString());
+    this.inArray[0] == "0";
+    this.inArray[1] == "0";
+    this.inDisplay[0] == "0";
+    this.inDisplay[1] == "0";
     this.sub_topic = "image64";
     this.$mqtt.on("connect", () => {
       //null refers to unused button, if connected this will set button to zero
-      this.inArray[0] == "0";
-      this.inArray[1] == "0";
+      console.log('masuk');
       this.$mqtt.subscribe(this.sub_topic, (err) => {
         if (err) {
           console.log(err);
@@ -226,57 +210,81 @@ export default {
   methods: {
     switch1(number) {
       if (this.state) {
-        this.inArray[0] = "0";
+        this.input1 = "0";
         this.state = false;
       }
-      this.inArray[0] = `${number}`;
-      this.inDisplay = `${number}`;
+      this.input1 = `${number}`;
+      this.temp1 = `${number}x`;
     },
     switch2(number) {
       if (this.state) {
-        this.inArray[1] = "0";
+        this.input2 = "0";
         this.state = false;
       }
-      this.inArray[1] = `${number}`;
-      this._inDisplay = `${number}`;
+      this.input2 = `${number}`;
+      this.temp2 = `${number}y`;
     },
     get() {
-      if (this.inDisplay === "0" && this._inDisplay === "0") {
+      if (this.temp1 === "0x" && this.temp2 === "0y") {
         this.output = "0";
+        this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
+        this.$mqtt.publish("and-input-active-2", this.temp2, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
       }
-      if (this.inDisplay === "0" && this._inDisplay === "1") {
+      if (this.temp1 === "0x" && this.temp2 === "1y") {
         this.output = "0";
+        this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
+        this.$mqtt.publish("and-input-active-2", this.temp2, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
       }
-      if (this.inDisplay === "1" && this._inDisplay === "0") {
+      if (this.temp1 === "1x" && this.temp2 === "0y") {
         this.output = "0";
+        this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
+        this.$mqtt.publish("and-input-active-2", this.temp2, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
       }
-      if (this.inDisplay === "1" && this._inDisplay === "1") {
+      if (this.temp1 === "1x" && this.temp2 === "1y") {
         this.output = "1";
+        this.$mqtt.publish("and-input-active-1", this.temp1, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
+        this.$mqtt.publish("and-input-active-2", this.temp2, (err) => {
+          if (err) {
+            console.log(err);
+            //alert("Berhasil Memberi Minum");
+          }
+        });
       }
-    },
-    led1(state) {
-      this.$mqtt.publish("and-input-active-1", state, (err) => {
-        if (err) {
-          console.log(err);
-          //alert("Berhasil Memberi Minum");
-        }
-      });
-    },
-    led2(state) {
-      this.$mqtt.publish("and-input-active-2", state, (err) => {
-        if (err) {
-          console.log(err);
-          //alert("Berhasil Memberi Minum");
-        }
-      });
-    },
-    kirim() {
-      this.$mqtt.publish("active", "true", (err) => {
-        if (!err) {
-          this.state = "Berhasil Mengambil ";
-          //alert("Berhasil Memberi Minum");
-        }
-      });
     },
   },
 };
